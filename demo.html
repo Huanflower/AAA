@@ -29,7 +29,7 @@
 
             var a = pageKey - i - 1;     //a = 1
 
-            //第一个坐标
+            //前找后
             if (a < 0) {
                 //获取最后坐标???
 //                end(pageList);
@@ -41,9 +41,9 @@
                 console.log(left);      //0,1
             }
 
-
             var b = pageKey + i + 1;    //b = 4
 
+            //后找前
             if (b > (pageList.lenght - 1)) {
                 //获取前面坐标???
 //                newKey = b - pageList.lenght - 1;
@@ -54,11 +54,16 @@
             }
         }
          // 5页数=左两位+当前+右两位
-        console.log( left+","+pageKey+","+right);    //0,1,2,3,4
+        var showPage=left+","+pageKey+","+right;
+        console.log(showPage);    //0,1,2,3,4
     }
 
-    page(1);
+    page(3);
+    //currentPage=$(".z-current").find(".m-img").attr("id").substring(4);             //4
 
+    //    根据页面id渲染页面，其他页移除
+
+    //    下一页时下面添加一页，上面移除一页
 </script>
 </body>
 </html>
