@@ -12,58 +12,93 @@
         visiblePage=2;
 
         //循环所有页列表
-        var pageList = [{'id': 1}, {'id': 2}, {'id': 3}, {'id': 4}, {'id': 5}, {'id': 6}, {'id': 7}]
-       // console.log(pageList.length);    //7
+        var pageList = [{'id': 1}, {'id': 2}, {'id': 3}, {'id': 4}, {'id': 5}, {'id': 6}, {'id': 7},{'id': 8},]
+       console.log(pageList.length);    //7
+       // console.log(pageList.reverse());
         var pageKey = 0;
         $.each(pageList, function (key, val) {
             if (val.id == currentPage) {
                 pageKey = key;
-               // console.log(pageKey);    //2
+               //console.log(pageKey);    //2
             }
         });
-
         //获取前两页 <--> 后两页
         var left = new Array();
         var right = new Array();
+        var current = new Array();
+        console.log(current);
         for (var i = 0; i < visiblePage; i++) {
 
             var a = pageKey - i - 1;     //a = 1
-
             //前找后
             if (a < 0) {
-                //获取最后坐标???
-//                end(pageList);
-//                var newKey = pageList - (a + 1);
-//                left.push(newKey)
-
+                switch (Math.abs(a)){
+                    case 1:
+                        var newKey = pageList[pageList.length-1];
+                        //  console.log(newKey);
+                        for(var key in newKey){
+                            //console.log(newKey[key])
+                            left.push(newKey[key]);
+                            left.reverse();
+                            console.log(left);
+                        }
+                        break;
+                    case 2:
+                        var newKey = pageList[pageList.length-2];
+                        for(var key in newKey){
+                            left.push(newKey[key]);
+                            left.reverse();
+                            console.log(left);
+                        }
+                        break;
+                }
             } else {
                 left.reverse(left.push(a));
                 console.log(left);      //0,1
             }
 
             var b = pageKey + i + 1;    //b = 4
+            console.log(b);
 
             //后找前
-            if (b > (pageList.lenght - 1)) {
-                //获取前面坐标???
-//                newKey = b - pageList.lenght - 1;
-//                right.push(newKey)
+            if (b > (pageList.length-1)) {
+                switch (Math.abs(b-(pageList.length-1))){
+                    case 1:
+                        var newKey = pageList[0];
+                        for(var key in newKey){
+                            right.push(newKey[key]);
+                            console.log(right);
+                        }
+                        break;
+                    case 2:
+                        var newKey = pageList[1];
+                        for(var key in newKey){
+                            right.push(newKey[key]);
+                            console.log(right);
+                        }
+                        break;
+                }
             } else {
-                right.push(b)
+                right.push(b);
                 console.log(right);     //3,4
             }
         }
          // 5页数=左两位+当前+右两位
-        var showPage=left+","+pageKey+","+right;
-        console.log(showPage);    //0,1,2,3,4
+        current.push(pageKey)
+        //console.log(current);
+        var fivePage = left.concat(current).concat(right);
+        console.log(fivePage);    //0,1,2,3,4
+
+
     }
 
-    page(3);
+    page(8);
     //currentPage=$(".z-current").find(".m-img").attr("id").substring(4);             //4
 
     //    根据页面id渲染页面，其他页移除
 
     //    下一页时下面添加一页，上面移除一页
+
 </script>
 </body>
 </html>
