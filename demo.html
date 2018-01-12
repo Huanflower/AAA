@@ -6,8 +6,24 @@
 </head>
 <body>
 <script src="jquery-3.2.1.min.js"></script>
-<input type="text" name="abc" value="1">
-<a href="javascript:;" onclick="page_1()">点击</a>
+<input type="text" name="abc" value="5">
+<a href="javascript:;" onclick="page_1()">点击</a><br/>
+<button id="prev" onclick="prev()">上一页</button>
+<button id="next" onclick="next()">下一页</button>
+<script>
+//    上一页时，获取input的值-1
+  function prev(){
+      var id =  $("input").val();
+      id--;
+      console.log('上一页id是  '+id);
+  }
+//    下一页时，获取input的值+1
+    function next(){
+        var id =  $("input").val();
+        id++;
+        console.log('下一页id是  '+id);
+    }
+</script>
 <script>
     function page_1(){
       var id = $('input[name=abc]').val();
@@ -25,71 +41,67 @@
              $.each(pageList, function (key, val) {
                  if (val.id == currentPage) {
                      pageKey = key;
-                     console.log(pageKey);    //0
+                     for (var k in val) {
+                         console.log('id的值是：'+val[k]);
+                     }
                  }
              });
+
              //获取前两页 <--> 后两页
              var left = new Array();
              var right = new Array();
              var current = new Array();
              //console.log(current);
              for (var i = 0; i < visiblePage; i++) {
-
                  var a = pageKey - i - 1;     //a = -1
                  //前找后
                  if (a < 0) {
                      if (Math.abs(a) == 1) {
-                         var newKey = pageList[pageList.length - 2];
-                           console.log(newKey);
-                         for (var key in newKey) {
-                             //console.log(newKey[key])
-                             left.push(newKey[key]);
+                         var newKey = pageList[pageList.length - 1];
+                         console.log(newKey)
+
+                         for (var k in newKey) {
+                            // console.log(newKey[key])
+                             left.push(newKey[k]);
                              left.reverse();
                              // console.log(left);
                          }
                      } else if (Math.abs(a) == 2) {
-                         var newKey = pageList[pageList.length - 1];
-                         for (var key in newKey) {
-                             left.push(newKey[key]);
+                         var newKey = pageList[pageList.length - 2];
+                         for (var k in newKey) {
+                             left.push(newKey[k]);
                              left.reverse();
                              //console.log(left);
                          }
                      }
                  } else {
                      left.reverse(left.push(pageList[a]['id']));
-                     console.log(left);      //4,5
+                    // console.log(left);      //4,5
                  }
-                 console.log('左两个数')
-                 console.log(left);
+                 console.log('left数是 '+left);
                  var b = pageKey + i + 1;    //b = 8
-                 console.log('b的值');
-                 console.log(b);
-
+                 //console.log('b的值'+b);
                  //后找前
-                 console.log(pageList.length - 1);
+                 //console.log('列表长度：'+pageList.length - 1);
                  if (b > (pageList.length - 1)) {
-                     console.log('绝对值');
-                     console.log(i);
-                     console.log(Math.abs(b-(pageList.length )));
+                     console.log('后找前的绝对值是： '+Math.abs(b-(pageList.length )));
                      var newKey = Math.abs(b-(pageList.length ));
                      right.push(pageList[newKey]['id']);
                  } else {
                      right.push(pageList[b]['id']);
                      //console.log(right);
                  }
-                 console.log('右两个数')
-                 console.log(right);
+                 console.log('right数是 '+right);
              }
 
              // 5页数=左两位+当前+右两位
              current.push(pageList[pageKey]['id'])
              //console.log(current);
              var fivePage = left.concat(current).concat(right);
-             console.log(fivePage);    //[4,5,6,7,1]
+             console.log('五页数id是：'+fivePage);    //[4,5,6,7,1]
 
              // page(1);
              //currentPage=$(".z-current").find(".m-img").attr("id").substring(4);   //4
-
 
              //=============================================================
              // 根据页面id渲染页面，其他页移除
@@ -108,7 +120,6 @@
              }
              console.log(pagearr);         //[1,2,3,4,5,6,7,8]
 
-
            //=========================================================
            //两组数中相同的元素显示
 //         var pagearr = [1,2,3,4,5,6,7,8];
@@ -123,9 +134,7 @@
                      }
                  }
              }
-             console.log('两个数组中相同的元素')
-             console.log(result);
-
+             console.log('相同的元素  '+result)
 
            //=====================================================
            //移除两个数组中不同的元素
@@ -143,19 +152,20 @@
                      result.push(pagearr[i]);
                  }
              }
-             console.log('两个数组中不同的元素');
-             console.log(result);
-
-
+             console.log('不同的元素   '+result);
              //======================================================
              // 每次点击下一页时下面添加一页，上面删除一页
              // 每次点击上一页时上面添加一页，下面删除一页
 
-
-
-            console.log('最终返回');console.log(fivePage);
+            console.log('最终返回');
+            console.log(fivePage);
 
          }
+
+
+
+
+
 
 </script>
 </body>
